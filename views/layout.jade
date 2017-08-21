@@ -1,5 +1,5 @@
 doctype html
-html
+html(ng-app='Vidzy')
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
@@ -8,4 +8,4 @@ html
     script(src='https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.5/angular-route.js')
     script(src='/javascripts/vidzy.js')
   body
-    block content
+    div(ng-view)

@@ -10,6 +10,7 @@ router.get('/', function(req, res) {
         if (err) throw err;
       	res.json(videos);
     });
+
 });
 
 module.exports = router;
