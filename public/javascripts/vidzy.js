@@ -5,6 +5,9 @@ app.config(['$routeProvider', function($routeProvider){
         .when('/', {
             templateUrl: 'partials/home.html'
         })
+        .when('/add-video', {
+          templateUrl: 'partials/video-form.html'
+        })
         .otherwise({
             redirectTo: '/'
         })
