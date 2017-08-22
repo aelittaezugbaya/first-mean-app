@@ -1,20 +1,22 @@
 var express = require('express');
 var router = express.Router();
 
-var monk = require('monk');
+// var monk = require('monk');
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost:27017/vidzy', {
+const db='mongodb://localhost:27017/vidzy';
+
+mongoose.connect(db, {
   useMongoClient: true,
 });
 
-const videoSchema = mongoose.Schema({
+let videoSchema = mongoose.Schema({
   title: String,
   description: String
 });
 
 const Video = mongoose.model('videos', videoSchema);
-var db = monk('localhost:27017/vidzy');
+// var db = monk('localhost:27017/vidzy');
 
 router.get('/', function(req, res) {
     // var collection = db.get('videos');
@@ -38,15 +40,23 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res){
-    var collection = db.get('videos');
-    collection.insert({
-        title: req.body.title,
-        description: req.body.description
-    }, function(err, video){
-        if (err) throw err;
-
-        res.json(video);
+    // var collection = db.get('videos');
+    // collection.insert({
+    //     title: req.body.title,
+    //     description: req.body.description
+    // }, function(err, video){
+    //     if (err) throw err;
+    //
+    //     res.json(video);
+    // });
+    Video.create({
+      title:req.body.title,
+      description: req.body.description
+    }).then(video => res.json(video))
+    .catch(err => {
+      throw new Error(err)
     });
+
 });
 
 router.get('/:id', function(req, res) {
