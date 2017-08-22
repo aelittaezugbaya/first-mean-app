@@ -100,11 +100,19 @@ router.put('/:id', function(req, res){
 });
 
 router.delete('/:id', function(req, res){
-    var collection = db.get('videos');
-    collection.remove({ _id: req.params.id }, function(err, video){
-        if (err) throw err;
+    // var collection = db.get('videos');
+    // collection.remove({ _id: req.params.id }, function(err, video){
+    //     if (err) throw err;
+    //
+    //     res.json(video);
+    // });
 
-        res.json(video);
+    Video.findOne({
+      _id: req.params.id
+    }).remove(
+      video=>res.json(video)
+    ).catch(err => {
+      throw new Error(err)
     });
 });
 
